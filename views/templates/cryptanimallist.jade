@@ -1,0 +1,23 @@
+form(ng-submit="addAnimal()")
+	input(placeholder="Name", ng-model="newAnimal.name")
+	div
+	input(placeholder="Coloring", ng-model="newAnimal.coloring")
+	div
+	input(placeholder="Calories", ng-model="newAnimal.calories")
+	div
+	input(placeholder="Component Animals", ng-model="newAnimal.componentAnimals")
+
+	input(type="submit")
+
+select(ng-change="sortAnimals()", ng-model="sortOrder", ng-options="option.val as option.name for option in [{name : 'Ascending', val : false}, {name : 'Descending', val : true}]")
+	//- option(value="true", ng-option="true") Ascending
+	//- option(value="false", ng-option="false") Descending
+
+.animal-list
+	.animal(ng-repeat="animal in animals | orderBy:'calories':sortOrder")
+		a(ng-href="#/animals/{{animal._id}}")
+			h4 {{animal.name}}
+		p Coloring in the wild : {{animal.coloring}}
+		p Calories in this tasty animal : {{animal.calories}}
+		ul
+			li(ng-repeat="component in animal.componentAnimals") {{component}}
